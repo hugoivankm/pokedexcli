@@ -12,7 +12,7 @@ import (
 
 func startRepl() {
 	scanner := bufio.NewScanner(os.Stdin)
-	var cfg *apiClient.Config
+	var cfg *apiClient.CommandConfig
 	for {
 		fmt.Print("Pokedex > ")
 		scanner.Scan()

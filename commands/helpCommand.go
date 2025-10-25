@@ -6,7 +6,7 @@ import (
 	apiClient "github.com/hugoivankm/pokedexcli/internal/apiclient"
 )
 
-func HelpCommand(*apiClient.Config) (*apiClient.Config, error) {
+func HelpCommand(cfg *apiClient.CommandConfig) (*apiClient.CommandConfig, error) {
 	fmt.Print(`Welcome to the Pokedex!
 Usage:
 `)

@@ -22,5 +22,10 @@ func GetCommands() map[string]CliCommand {
 			Description: "Displays the previous 20 map locations",
 			Callback:    MapbCommand,
 		},
+		"explore": {
+			Name:        "explore",
+			Description: "Explore location",
+			Callback:    exploreCommand,
+		},
 	}
 }

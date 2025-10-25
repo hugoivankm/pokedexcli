@@ -11,7 +11,7 @@ import (
 	"github.com/hugoivankm/pokedexcli/internal/pokecache"
 )
 
-func Get(url string) (*Config, error) {
+func Get(url string) (*CommandConfig, error) {
 
 	client := NewClient(29*time.Second, 10*time.Second)
 
@@ -36,7 +36,11 @@ func Get(url string) (*Config, error) {
 		return nil, fmt.Errorf("failed to unmarshall JSON: %w", err)
 	}
 
-	return &config, nil
+	result := CommandConfig{
+		Config: config,
+	}
+
+	return &result, nil
 
 }
 

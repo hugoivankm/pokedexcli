@@ -6,8 +6,8 @@ import (
 	apiClient "github.com/hugoivankm/pokedexcli/internal/apiclient"
 )
 
-func MapCommand(cfg *apiClient.Config) (*apiClient.Config, error) {
-	var currentCfg *apiClient.Config
+func MapCommand(cfg *apiClient.CommandConfig) (*apiClient.CommandConfig, error) {
+	var currentCfg *apiClient.CommandConfig
 	var err error
 	if cfg == nil {
 		currentCfg, err = apiClient.Get(apiClient.LocationAreaEndPoint)
@@ -16,8 +16,8 @@ func MapCommand(cfg *apiClient.Config) (*apiClient.Config, error) {
 		}
 
 	} else {
-		if cfg.Next != nil {
-			currentCfg, err = apiClient.Get(*cfg.Next)
+		if cfg.Config.Next != nil {
+			currentCfg, err = apiClient.Get(*cfg.Config.Next)
 			if err != nil {
 				return nil, fmt.Errorf("error acquiring next config: %w", err)
 			}
@@ -32,7 +32,7 @@ func MapCommand(cfg *apiClient.Config) (*apiClient.Config, error) {
 		return cfg, fmt.Errorf("no page data")
 	}
 
-	for _, loc := range currentCfg.Results {
+	for _, loc := range currentCfg.Config.Results {
 		fmt.Printf("%s\n", loc.Name)
 	}
 

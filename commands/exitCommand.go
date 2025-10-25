@@ -7,7 +7,7 @@ import (
 	apiClient "github.com/hugoivankm/pokedexcli/internal/apiclient"
 )
 
-func ExitCommand(*apiClient.Config) (*apiClient.Config, error) {
+func ExitCommand(cfg *apiClient.CommandConfig) (*apiClient.CommandConfig, error) {
 	fmt.Println("Closing the Pokedex... Goodbye! ")
 	os.Exit(0)
 	return nil, nil
