@@ -6,13 +6,13 @@ import (
 	"os"
 	"strings"
 
-	"github.com/hugoivankm/pokedexcli/commands"
-	"github.com/hugoivankm/pokedexcli/internal/apiClient/models"
+	commands "github.com/hugoivankm/pokedexcli/commands"
+	apiClient "github.com/hugoivankm/pokedexcli/internal/apiclient"
 )
 
 func startRepl() {
 	scanner := bufio.NewScanner(os.Stdin)
-	var cfg *models.Config
+	var cfg *apiClient.Config
 	for {
 		fmt.Print("Pokedex > ")
 		scanner.Scan()

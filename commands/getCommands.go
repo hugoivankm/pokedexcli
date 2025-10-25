@@ -1,11 +1,7 @@
 package commands
 
-import (
-	"github.com/hugoivankm/pokedexcli/commands/models"
-)
-
-func GetCommands() map[string]models.CliCommand {
-	return map[string]models.CliCommand{
+func GetCommands() map[string]CliCommand {
+	return map[string]CliCommand{
 		"exit": {
 			Name:        "exit",
 			Description: "Exit the Pokedex",

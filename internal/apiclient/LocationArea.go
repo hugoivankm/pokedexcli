@@ -1,4 +1,4 @@
-package models
+package apiclient
 
 type LocationArea struct {
 	EncounterMethodRates []EncounterMethodRates `json:"encounter_method_rates"`

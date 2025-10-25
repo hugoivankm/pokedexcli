@@ -1,4 +1,4 @@
-package models
+package apiclient
 
 type Config struct {
 	Count    int     `json:"count"`

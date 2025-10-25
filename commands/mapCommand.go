@@ -3,22 +3,21 @@ package commands
 import (
 	"fmt"
 
-	"github.com/hugoivankm/pokedexcli/internal/apiClient"
-	"github.com/hugoivankm/pokedexcli/internal/apiClient/models"
+	apiClient "github.com/hugoivankm/pokedexcli/internal/apiclient"
 )
 
-func MapCommand(cfg *models.Config) (*models.Config, error) {
-	var currentCfg *models.Config
+func MapCommand(cfg *apiClient.Config) (*apiClient.Config, error) {
+	var currentCfg *apiClient.Config
 	var err error
 	if cfg == nil {
-		currentCfg, err = apiClient.GetConfig(apiClient.LocationAreaEndPoint)
+		currentCfg, err = apiClient.Get(apiClient.LocationAreaEndPoint)
 		if err != nil {
 			return nil, fmt.Errorf("error acquiring config: %w", err)
 		}
 
 	} else {
 		if cfg.Next != nil {
-			currentCfg, err = apiClient.GetConfig(*cfg.Next)
+			currentCfg, err = apiClient.Get(*cfg.Next)
 			if err != nil {
 				return nil, fmt.Errorf("error acquiring next config: %w", err)
 			}

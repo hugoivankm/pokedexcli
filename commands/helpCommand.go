@@ -3,10 +3,10 @@ package commands
 import (
 	"fmt"
 
-	"github.com/hugoivankm/pokedexcli/internal/apiClient/models"
+	apiClient "github.com/hugoivankm/pokedexcli/internal/apiclient"
 )
 
-func HelpCommand(*models.Config) (*models.Config, error) {
+func HelpCommand(*apiClient.Config) (*apiClient.Config, error) {
 	fmt.Print(`Welcome to the Pokedex!
 Usage:
 `)

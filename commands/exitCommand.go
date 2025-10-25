@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/hugoivankm/pokedexcli/internal/apiClient/models"
+	apiClient "github.com/hugoivankm/pokedexcli/internal/apiclient"
 )
 
-func ExitCommand(*models.Config) (*models.Config, error) {
+func ExitCommand(*apiClient.Config) (*apiClient.Config, error) {
 	fmt.Println("Closing the Pokedex... Goodbye! ")
 	os.Exit(0)
 	return nil, nil
