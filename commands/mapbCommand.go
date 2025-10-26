@@ -3,21 +3,22 @@ package commands
 import (
 	"fmt"
 
+	"github.com/hugoivankm/pokedexcli/internal/apiclient"
 	apiClient "github.com/hugoivankm/pokedexcli/internal/apiclient"
 )
 
-func MapbCommand(cfg *apiClient.CommandConfig) (*apiClient.CommandConfig, error) {
-	var currentCfg *apiClient.CommandConfig
+func MapbCommand(cfg *apiClient.Config, rest ...any) (*apiClient.Config, error) {
+	var currentCfg *apiClient.Config
 	var err error
 	if cfg == nil {
-		currentCfg, err = apiClient.Get(apiClient.LocationAreaEndPoint)
+		currentCfg, err = apiClient.Get[apiclient.Config](apiClient.LocationAreaEndPoint)
 		if err != nil {
 			return nil, fmt.Errorf("error acquiring config: %w", err)
 		}
 
 	} else {
-		if cfg.Config.Previous != nil {
-			currentCfg, err = apiClient.Get(*cfg.Config.Previous)
+		if cfg.Previous != nil {
+			currentCfg, err = apiClient.Get[apiclient.Config](*cfg.Previous)
 			if err != nil {
 				return nil, fmt.Errorf("error acquiring previous config: %w", err)
 			}
@@ -32,7 +33,7 @@ func MapbCommand(cfg *apiClient.CommandConfig) (*apiClient.CommandConfig, error)
 		return cfg, fmt.Errorf("no page data")
 	}
 
-	for _, loc := range currentCfg.Config.Results {
+	for _, loc := range currentCfg.Results {
 		fmt.Printf("%s\n", loc.Name)
 	}
 

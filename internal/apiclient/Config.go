@@ -9,8 +9,3 @@ type Config struct {
 		URL  string `json:"url"`
 	} `json:"results"`
 }
-
-type CommandConfig struct {
-	Config           Config
-	LocationAreaName *string
-}

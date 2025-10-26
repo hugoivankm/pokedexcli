@@ -11,7 +11,7 @@ import (
 	"github.com/hugoivankm/pokedexcli/internal/pokecache"
 )
 
-func Get(url string) (*CommandConfig, error) {
+func Get[T any](url string) (*T, error) {
 
 	client := NewClient(29*time.Second, 10*time.Second)
 
@@ -30,18 +30,13 @@ func Get(url string) (*CommandConfig, error) {
 		return nil, fmt.Errorf("failed to read response body: %w", err)
 	}
 
-	var config Config
-	err = json.Unmarshal(body, &config)
+	var t T
+	err = json.Unmarshal(body, &t)
 	if err != nil {
 		return nil, fmt.Errorf("failed to unmarshall JSON: %w", err)
 	}
 
-	result := CommandConfig{
-		Config: config,
-	}
-
-	return &result, nil
-
+	return &t, nil
 }
 
 type HttpCachedClient struct {

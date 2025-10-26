@@ -2,21 +2,36 @@ package commands
 
 import (
 	"fmt"
+	"strings"
 
 	apiClient "github.com/hugoivankm/pokedexcli/internal/apiclient"
 )
 
-func exploreCommand(cfg *apiClient.CommandConfig) (*apiClient.CommandConfig, error) {
+func exploreCommand(cfg *apiClient.Config, rest ...any) (*apiClient.Config, error) {
 
-	if cfg.LocationAreaName == nil || *cfg.LocationAreaName == "" {
-		return nil, fmt.Errorf("no location provided")
+	if len(rest) == 0 {
+		return nil, fmt.Errorf("no location was provided")
 	}
 
-	currentCfg, err := apiClient.Get(apiClient.LocationAreaEndPoint)
+	LocationAreaName, ok := rest[0].(string)
+	if !ok {
+		return nil, fmt.Errorf("location must be a string type")
+	}
+
+	if strings.TrimSpace(LocationAreaName) == "" {
+		return nil, fmt.Errorf("empty location provided")
+	}
+
+	data, err := apiClient.Get[apiClient.LocationArea](apiClient.LocationAreaEndPoint + LocationAreaName)
 	if err != nil {
 		return nil, fmt.Errorf("error acquiring location: %w", err)
 	}
-	fmt.Print(currentCfg)
+
+	fmt.Printf("Exploring %s...\n", data.Name)
+	fmt.Println("Found Pokemon:")
+	for _, v := range data.PokemonEncounters {
+		fmt.Println("- " + v.Pokemon.Name)
+	}
 
 	return cfg, nil
 }

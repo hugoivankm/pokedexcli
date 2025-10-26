@@ -12,7 +12,7 @@ import (
 
 func startRepl() {
 	scanner := bufio.NewScanner(os.Stdin)
-	var cfg *apiClient.CommandConfig
+	var cfg *apiClient.Config
 	for {
 		fmt.Print("Pokedex > ")
 		scanner.Scan()
@@ -24,10 +24,16 @@ func startRepl() {
 		registry := commands.GetCommands()
 		commandWord, ok := registry[input[0]]
 
-		var err error
-
 		if ok {
-			cfg, err = commandWord.Callback(cfg)
+			var err error
+			params := input[1:]
+			args := make([]any, len(params))
+
+			for i, v := range params {
+				args[i] = v
+			}
+
+			cfg, err = commandWord.Callback(cfg, args...)
 			if err != nil {
 				fmt.Println(fmt.Errorf("error acquiring config: %w", err))
 			}
