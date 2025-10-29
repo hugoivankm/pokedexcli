@@ -18,6 +18,7 @@ func CatchCommand(cfg *apiClient.Config, rest ...any) (*apiClient.Config, error)
 	if !ok {
 		return nil, fmt.Errorf("pokemon name must be a string type")
 	}
+	pokemonName = strings.ToLower(pokemonName)
 
 	pokedexData, ok := rest[len(rest)-1].(apiClient.PokedexData)
 	if !ok {
