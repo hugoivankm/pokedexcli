@@ -13,6 +13,8 @@ import (
 func startRepl() {
 	scanner := bufio.NewScanner(os.Stdin)
 	var cfg *apiClient.Config
+	pdx := apiClient.PokedexData{}
+
 	for {
 		fmt.Print("Pokedex > ")
 		scanner.Scan()
@@ -32,6 +34,8 @@ func startRepl() {
 			for i, v := range params {
 				args[i] = v
 			}
+
+			args = append(args, pdx)
 
 			cfg, err = commandWord.Callback(cfg, args...)
 			if err != nil {
