@@ -39,7 +39,7 @@ func startRepl() {
 
 			cfg, err = commandWord.Callback(cfg, args...)
 			if err != nil {
-				fmt.Println(fmt.Errorf("error acquiring config: %w", err))
+				fmt.Println(fmt.Errorf("error: %w", err))
 			}
 		} else {
 			fmt.Println("Unknown command")

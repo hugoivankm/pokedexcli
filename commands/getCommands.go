@@ -27,17 +27,20 @@ func GetCommands() map[string]CliCommand {
 			Description: "Displays the previous 20 map locations",
 			Callback:    MapbCommand,
 		},
-
 		"catch": {
 			Name:        "catch",
 			Description: "Catch a pokemon",
 			Callback:    CatchCommand,
 		},
-
 		"inspect": {
 			Name:        "inspect",
 			Description: "Inspect a pokemon information",
 			Callback:    InspectCommand,
+		},
+		"pokedex": {
+			Name:        "pokedex",
+			Description: "check your pokedex",
+			Callback:    PokedexCommand,
 		},
 	}
 }
