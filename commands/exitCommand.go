@@ -8,7 +8,7 @@ import (
 )
 
 func ExitCommand(cfg *apiClient.Config, rest ...any) (*apiClient.Config, error) {
-	fmt.Println("Closing the Pokedex... Goodbye! ")
+	fmt.Print("Closing the Pokedex... Goodbye! \n")
 	os.Exit(0)
 	return nil, nil
 }

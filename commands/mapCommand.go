@@ -24,7 +24,7 @@ func MapCommand(cfg *apiclient.Config, rest ...any) (*apiclient.Config, error) {
 			}
 		} else {
 			currentCfg = cfg
-			fmt.Println("you're on the last page")
+			fmt.Print("you're on the last page")
 			return currentCfg, nil
 		}
 	}

@@ -23,7 +23,7 @@ func MapbCommand(cfg *apiClient.Config, rest ...any) (*apiClient.Config, error) 
 			}
 		} else {
 			currentCfg = cfg
-			fmt.Println("you're on the first page")
+			fmt.Print("you're on the first page")
 			return currentCfg, nil
 		}
 	}

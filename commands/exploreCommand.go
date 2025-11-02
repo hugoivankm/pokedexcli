@@ -28,9 +28,9 @@ func exploreCommand(cfg *apiClient.Config, rest ...any) (*apiClient.Config, erro
 	}
 
 	fmt.Printf("Exploring %s...\n", data.Name)
-	fmt.Println("Found Pokemon:")
+	fmt.Print("Found Pokemon:\n")
 	for _, v := range data.PokemonEncounters {
-		fmt.Println("- " + v.Pokemon.Name)
+		fmt.Print("- " + v.Pokemon.Name + "\n")
 	}
 
 	return cfg, nil

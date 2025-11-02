@@ -13,7 +13,7 @@ Usage:
 	registry := GetCommands()
 	for command := range registry {
 		c := registry[command]
-		fmt.Println(c.Name + ": " + c.Description)
+		fmt.Print(c.Name + ": " + c.Description + "\n")
 	}
 	return nil, nil
 }

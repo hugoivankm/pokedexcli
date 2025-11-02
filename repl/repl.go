@@ -1,28 +1,38 @@
-package main
+package repl
 
 import (
-	"bufio"
 	"fmt"
-	"os"
 	"strings"
 
 	commands "github.com/hugoivankm/pokedexcli/commands"
 	apiClient "github.com/hugoivankm/pokedexcli/internal/apiclient"
 )
 
-func startRepl() {
-	scanner := bufio.NewScanner(os.Stdin)
+func StartRepl() {
 	var cfg *apiClient.Config
 	pdx := apiClient.PokedexData{}
+	history := NewCommandHistory()
 
 	for {
-		fmt.Print("Pokedex > ")
-		scanner.Scan()
+		prompt := ("Pokedex > ")
+		text, err := readLineWithHistory(prompt, history)
 
-		input := cleanInput(scanner.Text())
+		if err != nil {
+			if err.Error() == "EOF" {
+				fmt.Println("\nGoodbye!")
+				break
+			}
+		}
+
+		input, err := cleanInput(text, nil)
+
+		if err != nil {
+			fmt.Printf("err: %v\n", err)
+		}
 		if len(input) == 0 {
 			continue
 		}
+		history.Add(strings.Join(input, " "))
 		registry := commands.GetCommands()
 		commandWord, ok := registry[input[0]]
 
@@ -39,17 +49,19 @@ func startRepl() {
 
 			cfg, err = commandWord.Callback(cfg, args...)
 			if err != nil {
-				fmt.Println(fmt.Errorf("error: %w", err))
+				fmt.Printf("error: %v\n", err)
 			}
 		} else {
 			fmt.Println("Unknown command")
 		}
-
 	}
 }
 
-func cleanInput(text string) []string {
+func cleanInput(text string, err error) ([]string, error) {
+	if err != nil {
+		return nil, err
+	}
 	result := strings.ToLower((text))
 	words := strings.Fields(result)
-	return words
+	return words, nil
 }
