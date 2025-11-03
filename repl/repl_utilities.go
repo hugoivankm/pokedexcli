@@ -22,8 +22,9 @@ func NewCommandHistory() *CommandHistory {
 
 func (h *CommandHistory) Add(cmd string) {
 	cmd = strings.TrimSpace(cmd)
-	if cmd != "" && (len(h.commands) == 0) {
+	if cmd != "" && (len(h.commands) == 0 || h.commands[len(h.commands)-1] != cmd) {
 		h.commands = append(h.commands, cmd)
+
 	}
 	h.index = len(h.commands)
 }
